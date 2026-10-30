@@ -3,6 +3,8 @@ import pytest
 from src.core.errors import (
     DocumentError,
     PasswordProtectedError,
+    RenderError,
+    SourceNotFoundError,
     UnsupportedFileError,
     WordExportError,
     WordTimeoutError,
@@ -55,7 +57,14 @@ def test_jpg_uses_fixed_quality_90():
 
 @pytest.mark.parametrize(
     "error_class",
-    [UnsupportedFileError, PasswordProtectedError, WordExportError, WordTimeoutError],
+    [
+        UnsupportedFileError,
+        SourceNotFoundError,
+        PasswordProtectedError,
+        WordExportError,
+        WordTimeoutError,
+        RenderError,
+    ],
 )
 def test_errors_are_document_errors_with_german_user_message(error_class: type[DocumentError]):
     error = error_class()

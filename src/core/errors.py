@@ -19,6 +19,14 @@ class UnsupportedFileError(DocumentError):
     user_message = "Dateityp wird nicht unterstützt."
 
 
+class SourceNotFoundError(DocumentError):
+    user_message = "Die Datei wurde nicht gefunden."
+
+
+class RenderError(DocumentError):
+    user_message = "Die Seiten konnten nicht als Bilder gespeichert werden."
+
+
 class PasswordProtectedError(DocumentError):
     user_message = "Das Dokument ist kennwortgeschützt und kann nicht verarbeitet werden."
 

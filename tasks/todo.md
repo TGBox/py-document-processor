@@ -99,13 +99,13 @@ Endung, legt `<name>_pages` bzw. `<name>_pages (n)` an, erzeugt das PDF in einem
 
 **Acceptance criteria:**
 
-- [ ] Nicht unterstützte Endung → `UnsupportedFileError`, kein Ordner angelegt
-- [ ] Vorhandener Ausgabeordner → `(2)`, `(3)` …; bestehender Ordner unverändert
-- [ ] Temp-PDF ist nach Erfolg, Fehler (gemocktes `word_to_pdf` wirft) und Abbruch gelöscht
+- [x] Nicht unterstützte Endung → `UnsupportedFileError`, kein Ordner angelegt
+- [x] Vorhandener Ausgabeordner → `(2)`, `(3)` …; bestehender Ordner unverändert
+- [x] Temp-PDF ist nach Erfolg, Fehler (gemocktes `word_to_pdf` wirft) und Abbruch gelöscht
 
 **Verification:**
 
-- [ ] `uv run pytest tests/test_pipeline.py tests/test_output_dir.py -v`
+- [x] `uv run pytest tests/test_pipeline.py tests/test_output_dir.py -v`
 - [ ] Daniel lokal: `uv run python -m src.core.pipeline <test.docx>` → Bilder vorhanden
 
 **Dependencies:** Task 2, Task 3
