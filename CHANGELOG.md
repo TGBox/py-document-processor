@@ -2,7 +2,8 @@
 
 ## SemVer v1.0.0
 
-- 2026-10-30 (e0bd1a9): build: add ci tests, pyinstaller bundling and readme
+- 2026-10-30 (d1a9901): fix: add missing files from the last push
+- 2026-10-30 (249dd70): build: add ci tests, pyinstaller bundling and readme
 
 ## SemVer v0.4.0
 
