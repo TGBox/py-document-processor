@@ -21,6 +21,14 @@ Funktionstrennung, nicht durch ein Plugin-Framework.
 Presets ersetzen Optionen: Der Nutzer wählt *wofür*, nicht *wie*. Die
 Preset-Werte liegen in einer kleinen, editierbaren Config.
 
+## Decisions
+
+- **Export immer ohne Markup:** Änderungsverfolgung und Kommentare werden beim
+  PDF-Export ausgeblendet (`ExportAsFixedFormat` mit `wdExportDocumentContent`,
+  Revisionen nicht angezeigt). Ergebnis ist stets die saubere Endfassung. Die
+  Quelldatei wird schreibgeschützt geöffnet und nie verändert. Eine Option
+  „mit Markup“ kommt erst bei konkretem Bedarf.
+
 ## Key Assumptions to Validate
 
 - [ ] Word-COM läuft stabil unsichtbar im QThread, auch neben einer offenen
@@ -64,6 +72,4 @@ Preset-Werte liegen in einer kleinen, editierbaren Config.
   Batch und Kontextmenü später Priorität bekommen.
 - Woher stammen die Word-Dokumente (Handbücher, Release Notes, Schulungsunterlagen)?
   Sie könnten konkretere Presets liefern.
-- Sollen Änderungsverfolgung und Kommentare im Export sichtbar sein oder unterdrückt
-  werden?
 - Was sind die tatsächlichen Zielmaße für Confluence und Slides bei euch?
