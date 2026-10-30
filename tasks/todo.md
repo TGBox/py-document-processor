@@ -64,14 +64,14 @@ lazy importiert. Pytest-Marker `word` registrieren und in CI standardmäßig aus
 
 **Acceptance criteria:**
 
-- [ ] Dokument mit Änderungsverfolgung + Kommentar → PDF-Text enthält nur die Endfassung, keinen Kommentartext
-- [ ] Kennwortgeschützte Datei → `PasswordProtectedError` ohne Dialog/Hänger; kein verbleibender eigener WINWORD-Prozess
+- [x] Dokument mit Änderungsverfolgung + Kommentar → PDF-Text enthält nur die Endfassung, keinen Kommentartext
+- [x] Kennwortgeschützte Datei → `PasswordProtectedError` ohne Dialog/Hänger; kein verbleibender eigener WINWORD-Prozess
 - [ ] Quelldatei-`mtime` unverändert; bereits offenes Nutzer-Word bleibt offen
 
 **Verification:**
 
 - [x] `uv run pytest -v` (CI/Linux: Word-Tests übersprungen)
-- [ ] Daniel lokal: `uv run pytest -v -m word`
+- [x] Daniel lokal: `uv run pytest -v -m word`
 - [ ] Manuell: Word mit eigenem Dokument offen lassen, Test laufen lassen → Dokument noch offen
 
 **Dependencies:** Task 1
@@ -82,7 +82,7 @@ lazy importiert. Pytest-Marker `word` registrieren und in CI standardmäßig aus
 
 ### ✅ Checkpoint 1 (Daniel, Windows)
 
-- [ ] `uv run pytest -v -m word` grün
+- [x] `uv run pytest -v -m word` grün
 - [ ] PDF eines Markup-Dokuments manuell angesehen: nur Endfassung
 - [ ] Review mit Daniel vor Phase 2
 

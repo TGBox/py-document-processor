@@ -2,7 +2,8 @@
 
 ## SemVer v0.1.6
 
-- 2026-10-30 (d42bdc3): feat(core): export word documents to pdf without markup
+- 2026-10-30 (44983ce): feat(core): export word documents to pdf without markup
+- 2026-10-30 (2054385): feat(core): export word documents to pdf without markup
 
 ## SemVer v0.1.5
 
