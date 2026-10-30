@@ -235,7 +235,7 @@ Task 6–8, inkl. Hover-/Drag-Over-Zustand der Drop-Zone.
 - [ ] Daniel lokal: Sichtprüfung beider Themes, F11, Neustart
 
 **Dependencies:** Task 6
-**Files:** `src/gui/theme.py`, `src/gui/main_window.py`, `src/gui/settings.py`
+**Files:** `src/gui/theme.py`, `src/gui/main_window.py`, `src/gui/settings.py`, `src/gui/drop_zone.py`, `src/main.py`, `tests/test_theme.py`
 **Scope:** S
 
 ---

@@ -1,10 +1,18 @@
-"""Main window: options bar, drop zone, progress with cancel, and a per-file status list."""
+"""Main window: options bar, drop zone, progress with cancel, per-file status, view menu."""
 
 from pathlib import Path
 
-from PySide6.QtCore import QSettings, QThread, QUrl
-from PySide6.QtGui import QDesktopServices
+from PySide6.QtCore import QSettings, Qt, QThread, QUrl
+from PySide6.QtGui import (
+    QAction,
+    QActionGroup,
+    QDesktopServices,
+    QGuiApplication,
+    QKeySequence,
+    QShortcut,
+)
 from PySide6.QtWidgets import (
+    QApplication,
     QHBoxLayout,
     QLabel,
     QMainWindow,
@@ -18,8 +26,9 @@ from src.core.options import ExportOptions
 from src.gui.drop_zone import DropZone
 from src.gui.options_bar import OptionsBar
 from src.gui.progress import BatchProgress
-from src.gui.settings import load_options, save_options
+from src.gui.settings import KEY_GEOMETRY, load_options, load_theme, save_options, save_theme
 from src.gui.status_list import StatusList
+from src.gui.theme import THEME_LABELS, Theme, build_stylesheet, palette_for
 from src.gui.worker import ExportWorker
 
 WINDOW_TITLE = "py-document-processor"
@@ -71,6 +80,81 @@ class MainWindow(QMainWindow):
         self._succeeded = 0
         self._failed = 0
         self._close_requested = False
+        self._was_maximized = False
+
+        self._theme = load_theme(self._settings)
+        self._build_view_menu()
+        self._apply_theme()
+        hints = QGuiApplication.styleHints()
+        if hasattr(hints, "colorSchemeChanged"):  # Qt >= 6.5: follow the Windows setting live
+            hints.colorSchemeChanged.connect(self._apply_theme)
+        self._restore_geometry()
+
+    # --- view menu, theme, full screen, geometry -------------------------------------------
+
+    def _build_view_menu(self) -> None:
+        view_menu = self.menuBar().addMenu("&Ansicht")
+
+        theme_menu = view_menu.addMenu("Design")
+        theme_group = QActionGroup(self)
+        theme_group.setExclusive(True)
+        for theme, label in THEME_LABELS.items():
+            action = QAction(label, self)
+            action.setCheckable(True)
+            action.setChecked(theme is self._theme)
+            action.triggered.connect(lambda _checked=False, t=theme: self._set_theme(t))
+            theme_group.addAction(action)
+            theme_menu.addAction(action)
+
+        view_menu.addSeparator()
+        self._fullscreen_action = QAction("Vollbild", self)
+        self._fullscreen_action.setCheckable(True)
+        self._fullscreen_action.setShortcut(QKeySequence(Qt.Key.Key_F11))
+        self._fullscreen_action.toggled.connect(self._set_fullscreen)
+        view_menu.addAction(self._fullscreen_action)
+        self.addAction(self._fullscreen_action)  # F11 also works with the menu bar hidden
+
+        leave_fullscreen = QShortcut(QKeySequence(Qt.Key.Key_Escape), self)
+        leave_fullscreen.activated.connect(lambda: self._fullscreen_action.setChecked(False))
+
+    def _set_theme(self, theme: Theme) -> None:
+        self._theme = theme
+        save_theme(self._settings, theme)
+        self._apply_theme()
+
+    def _apply_theme(self, *_args: object) -> None:
+        hints = QGuiApplication.styleHints()
+        system_is_dark = (
+            hasattr(hints, "colorScheme") and hints.colorScheme() == Qt.ColorScheme.Dark
+        )
+        palette = palette_for(self._theme, system_is_dark=system_is_dark)
+        QApplication.instance().setStyleSheet(build_stylesheet(palette))
+
+    def _set_fullscreen(self, enabled: bool) -> None:
+        if enabled and not self.isFullScreen():
+            self._was_maximized = self.isMaximized()
+            self.showFullScreen()
+        elif not enabled and self.isFullScreen():
+            if self._was_maximized:
+                self.showMaximized()
+            else:
+                self.showNormal()
+
+    def _restore_geometry(self) -> None:
+        geometry = self._settings.value(KEY_GEOMETRY)
+        if geometry is None:
+            return
+        try:
+            self.restoreGeometry(geometry)
+        except TypeError:
+            return
+        # Never start in full screen; keep the normal geometry instead.
+        self.setWindowState(self.windowState() & ~Qt.WindowState.WindowFullScreen)
+
+    def _save_geometry(self) -> None:
+        self._settings.setValue(KEY_GEOMETRY, self.saveGeometry())
+
+    # --- export ------------------------------------------------------------------------------
 
     def is_busy(self) -> bool:
         return self._thread is not None
@@ -170,4 +254,5 @@ class MainWindow(QMainWindow):
             self._progress_label.setText("Wird nach dem aktuellen Schritt beendet …")
             event.ignore()
             return
+        self._save_geometry()
         super().closeEvent(event)

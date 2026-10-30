@@ -28,6 +28,7 @@ class DropZone(QLabel):
         self.setObjectName("dropZone")
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setAcceptDrops(True)
+        self.setAttribute(Qt.WidgetAttribute.WA_Hover, True)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self.setMinimumSize(320, 200)
         self._set_drag_active(False)

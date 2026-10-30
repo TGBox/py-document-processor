@@ -1,8 +1,13 @@
 # Changelog
 
+## SemVer v0.4.0
+
+- 2026-10-30 (86e14de): feat(gui): add light/dark theme, full screen and window geometry
+
 ## SemVer v0.3.0
 
-- 2026-10-30 (baeb731): feat(gui): add progress bar, cancel button and status list
+- 2026-10-30 (f96d545): Merge pull request #4 from TGBox/progress-status
+- 2026-10-30 (eb80242): feat(gui): add progress bar, cancel button and status list
 
 ## SemVer v0.2.1
 

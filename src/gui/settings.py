@@ -1,4 +1,4 @@
-"""Load and save ExportOptions via QSettings.
+"""Load and save ExportOptions and UI preferences via QSettings.
 
 Works with any object offering ``value(key, default)`` and ``setValue(key, value)`` so the
 parsing can be tested without Qt. QSettings may hand back strings (INI/registry), so every
@@ -8,10 +8,13 @@ value is parsed defensively; invalid values fall back to the default individuall
 from typing import Any, Protocol
 
 from src.core.options import MAX_SCALE_PERCENT, MIN_SCALE_PERCENT, ExportOptions, ImageFormat
+from src.gui.theme import Theme
 
 KEY_SCALE_PERCENT = "export/scale_percent"
 KEY_IMAGE_FORMAT = "export/image_format"
 KEY_SAVE_TEXT = "export/save_text"
+KEY_THEME = "ui/theme"
+KEY_GEOMETRY = "ui/geometry"
 
 _TRUE_VALUES = {"true", "1"}
 _FALSE_VALUES = {"false", "0"}
@@ -64,3 +67,14 @@ def _parse_bool(raw: Any, default: bool) -> bool:
     if text in _FALSE_VALUES:
         return False
     return default
+
+
+def load_theme(settings: SettingsStore) -> Theme:
+    try:
+        return Theme(settings.value(KEY_THEME))
+    except ValueError:
+        return Theme.SYSTEM
+
+
+def save_theme(settings: SettingsStore, theme: Theme) -> None:
+    settings.setValue(KEY_THEME, theme.value)
