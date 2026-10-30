@@ -1,6 +1,6 @@
 [project]
 name = "py-document-processor"
-version = "0.1.5"
+version = "0.1.6"
 description = "A python GUI app to process documents and prepare their contents for different contexts."
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -35,3 +35,9 @@ packages = ["src"]
 
 [tool.ruff]
 line-length = 100
+
+[tool.pytest.ini_options]
+markers = [
+    "word: integration tests that need Microsoft Word on Windows (run with -m word)",
+]
+addopts = "-m 'not word'"

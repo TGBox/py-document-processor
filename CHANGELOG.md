@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.1.6
+
+- 2026-10-30 (d42bdc3): feat(core): export word documents to pdf without markup
+
 ## SemVer v0.1.5
 
-- 2026-10-30 (0d3e045): feat(core): render pdf pages to images
+- 2026-10-30 (17acd65): feat(core): render pdf pages to images
 
 ## SemVer v0.1.4
 

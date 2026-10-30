@@ -16,13 +16,13 @@ PNG/JPG inkl. Endung und Speicherparameter, Text ja/nein) sowie die Fehlerhierar
 
 **Acceptance criteria:**
 
-- [ ] `pypdfium2`, `pillow`, `pywin32; sys_platform == 'win32'` in `pyproject.toml`, `uv.lock` aktualisiert *(pyproject erledigt; uv.lock: lokal per `uv sync --all-groups` – PyPI war in der Agent-Sitzung gesperrt)*
+- [x] `pypdfium2`, `pillow`, `pywin32; sys_platform == 'win32'` in `pyproject.toml`, `uv.lock` aktualisiert
 - [x] `ExportOptions` validiert Skalierung (außerhalb 10–400 → `ValueError`), Standard 100 % / PNG / Text aus
 - [x] Fehlerklassen: `UnsupportedFileError`, `PasswordProtectedError`, `WordExportError`, `WordTimeoutError` – jeweils mit deutscher Meldung
 
 **Verification:**
 
-- [ ] `uv sync --all-groups` ok
+- [x] `uv sync --all-groups` ok
 - [x] `uv run pytest tests/test_options.py -v`
 
 **Dependencies:** None
@@ -70,12 +70,12 @@ lazy importiert. Pytest-Marker `word` registrieren und in CI standardmäßig aus
 
 **Verification:**
 
-- [ ] `uv run pytest -v` (CI/Linux: Word-Tests übersprungen)
+- [x] `uv run pytest -v` (CI/Linux: Word-Tests übersprungen)
 - [ ] Daniel lokal: `uv run pytest -v -m word`
 - [ ] Manuell: Word mit eigenem Dokument offen lassen, Test laufen lassen → Dokument noch offen
 
 **Dependencies:** Task 1
-**Files:** `src/core/word_to_pdf.py`, `tests/test_word_to_pdf.py`, `tests/fixtures/markup.docx`, `tests/fixtures/password.docx`, `pyproject.toml` (pytest-Marker)
+**Files:** `src/core/word_to_pdf.py`, `tests/test_word_to_pdf.py`, `tests/test_word_to_pdf_integration.py`, `tests/fixtures/markup.docx`, `tests/fixtures/password.docx`, `pyproject.toml` (pytest-Marker)
 **Scope:** M
 
 ---

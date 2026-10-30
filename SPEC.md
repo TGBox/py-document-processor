@@ -176,6 +176,8 @@ def render_pages(
   - Word nur über `DispatchEx` starten, `Visible = False`, `DisplayAlerts = 0`,
     Dokument `ReadOnly=True`, `AddToRecentFiles=False`; `Close(SaveChanges=0)` und `Quit()`
     stets im `finally`.
+  - Makros in der Word-Instanz deaktivieren (`AutomationSecurity = msoAutomationSecurityForceDisable`),
+    da die Dokumente von Kunden stammen.
   - `pythoncom.CoInitialize()` / `CoUninitialize()` im Worker-Thread.
   - Lange Arbeit nur im QThread-Worker; GUI-Updates nur über Signale.
   - Temp-Dateien über `tempfile`, Aufräumen im `finally`.
