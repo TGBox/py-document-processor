@@ -1,8 +1,13 @@
 # Changelog
 
+## SemVer v0.2.0
+
+- 2026-10-30 (9992ba6): feat: add gui
+
 ## SemVer v0.1.8
 
-- 2026-10-30 (b4683cf): feat(core): abort hung word exports after 120 seconds
+- 2026-10-30 (6990250): Merge pull request #1 from TGBox/batch-timeout
+- 2026-10-30 (cb31afd): feat(core): abort hung word exports after 120 seconds
 
 ## SemVer v0.1.7
 
