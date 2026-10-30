@@ -1,7 +1,7 @@
 # Spec: Word-Seiten als Bilder (MVP)
 
 > Grundlage: [`docs/ideas/word-pages-to-images.md`](docs/ideas/word-pages-to-images.md)
-> Status: **Entwurf – wartet auf Freigabe**
+> Status: **Freigegeben (2026-10-30) · MVP umgesetzt und abgenommen (2026-10-30)**
 
 ## Objective
 
@@ -196,27 +196,31 @@ def render_pages(
 
 ## Success Criteria
 
-- [ ] 10-seitige A4-.docx → genau 10 PNGs à 1240 × 1754 px (±1 px) in `<name>_pages/`.
-- [ ] Skalierung 50 % → 620 × 877 px; 200 % → 2480 × 3508 px.
-- [ ] JPG-Auswahl erzeugt `.jpg`; Checkbox Text erzeugt `page_NN.txt` mit Seitentext.
-- [ ] Dokument mit Änderungsverfolgung + Kommentaren → Bilder zeigen nur die Endfassung.
-- [ ] Zweiter Export desselben Dokuments → `<name>_pages (2)`, erster Ordner unverändert.
-- [ ] Während des Exports bleibt das Fenster bedienbar (verschiebbar, Abbrechen klickbar).
-- [ ] Eigene offene Word-Dokumente bleiben offen und unverändert.
-- [ ] Kennwortgeschützte Datei → deutsche Fehlermeldung, kein hängender WINWORD-Prozess,
+- [x] 10-seitige A4-.docx → genau 10 PNGs à 1240 × 1754 px (±1 px) in `<name>_pages/`. *(Seitenzahl/Pixelmaße per Unit-Test mit 2- und 100-Seiten-PDFs, real mit Word geprüft)*
+- [x] Skalierung 50 % → 620 × 877 px; 200 % → 2480 × 3508 px.
+- [x] JPG-Auswahl erzeugt `.jpg`; Checkbox Text erzeugt `page_NN.txt` mit Seitentext.
+- [x] Dokument mit Änderungsverfolgung + Kommentaren → Bilder zeigen nur die Endfassung.
+- [x] Zweiter Export desselben Dokuments → `<name>_pages (2)`, erster Ordner unverändert.
+- [x] Während des Exports bleibt das Fenster bedienbar (verschiebbar, Abbrechen klickbar).
+- [x] Eigene offene Word-Dokumente bleiben offen und unverändert.
+- [x] Kennwortgeschützte Datei → deutsche Fehlermeldung, kein hängender WINWORD-Prozess,
       nächste Datei wird verarbeitet.
-- [ ] Nach Lauf (Erfolg, Fehler, Abbruch) liegt kein Temp-PDF mehr im Temp-Ordner.
-- [ ] Quelldatei: Änderungsdatum unverändert.
-- [ ] Dark/Light-Theme, F11-Vollbild, Fenstergeometrie wird über Neustart gemerkt.
-- [ ] `uv run ruff check .` und `uv run pytest` grün; CI grün.
-- [ ] `uv run build` erzeugt eine lauffähige .exe, die einen Export durchführt.
+- [x] Nach Lauf (Erfolg, Fehler, Abbruch) liegt kein Temp-PDF mehr im Temp-Ordner. *(per Unit-Test für alle drei Fälle)*
+- [x] Quelldatei: Änderungsdatum unverändert.
+- [x] Dark/Light-Theme, F11-Vollbild, Fenstergeometrie wird über Neustart gemerkt.
+- [x] `uv run ruff check .` und `uv run pytest` grün; CI grün.
+- [x] `uv run build` erzeugt eine lauffähige .exe, die einen Export durchführt.
+
+## Decisions (aus Spec-Review)
+
+1. **Word-Timeout:** 120 s pro Dokument. Danach wird ausschließlich der vom Tool gestartete
+   `WINWORD.EXE`-Prozess beendet (PID über das Fenster-Handle der eigenen Instanz) und die
+   Datei mit der Meldung „Word reagiert nicht – Verarbeitung abgebrochen.“ als fehlgeschlagen
+   markiert; die nächste Datei wird verarbeitet.
+2. **Text-Checkbox:** Standard „aus“.
+3. **Einstellungen merken:** Skalierung, Format und Text-Checkbox werden per QSettings über
+   Neustarts hinweg gespeichert.
 
 ## Open Questions
 
-1. **Hängende Word-Instanz:** Ein blockierender COM-Aufruf lässt sich nicht sauber
-   abbrechen. Vorschlag: Timeout von 120 s pro Dokument; danach wird der von uns gestartete
-   `WINWORD.EXE`-Prozess (PID per Fenster-Handle ermittelt) beendet. Akzeptabel, oder reicht
-   im MVP „Abbrechen greift nach dem Word-Export“ ohne Timeout?
-2. **Text-Checkbox:** Standard „aus“ angenommen – passt das?
-3. **Einstellungen merken:** Sollen Skalierung, Format und Text-Checkbox über Neustarts
-   hinweg gespeichert werden (QSettings)? Angenommen: ja.
+– keine –

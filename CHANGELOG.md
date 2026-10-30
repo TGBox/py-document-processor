@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v1.1.0
+
+- 2026-10-30 (db04e62): docs: close mvp spec and plan, restore spec decisions
+
 ## SemVer v1.0.0
 
-- 2026-10-30 (d1a9901): fix: add missing files from the last push
+- 2026-10-30 (a057825): fix: add missing files from the last push
 - 2026-10-30 (249dd70): build: add ci tests, pyinstaller bundling and readme
 
 ## SemVer v0.4.0

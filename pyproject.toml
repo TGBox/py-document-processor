@@ -1,6 +1,6 @@
 [project]
 name = "py-document-processor"
-version = "1.0.0"
+version = "1.1.0"
 description = "A python GUI app to process documents and prepare their contents for different contexts."
 requires-python = ">=3.11"
 license = { text = "MIT" }

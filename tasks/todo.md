@@ -258,14 +258,14 @@ CHANGELOG-Eintrag 0.1.0.
 
 **Acceptance criteria:**
 
-- [ ] CI führt Lint + Tests aus und ist grün
-- [ ] `uv run build` → `dist/py-document-processor/py-document-processor.exe` startet und exportiert ein Dokument auf einem Rechner ohne Python
+- [x] CI führt Lint + Tests aus und ist grün
+- [x] `uv run build` → `dist/py-document-processor/py-document-processor.exe` startet und exportiert ein Dokument auf einem Rechner ohne Python
 - [x] README beschreibt Bedienung, Optionen, Voraussetzungen; CHANGELOG aktualisiert *(CHANGELOG pflegt der post-commit-Hook automatisch)*
 
 **Verification:**
 
-- [ ] CI-Lauf auf GitHub grün
-- [ ] Daniel lokal: Build + Exe-Test
+- [x] CI-Lauf auf GitHub grün
+- [x] Daniel lokal: Build + Exe-Test
 
 **Dependencies:** Task 7, Task 8, Task 9
 **Files:** `.github/workflows/ci.yml`, `src/build.py`, `README.md`, `tests/test_build.py`
@@ -275,6 +275,6 @@ CHANGELOG-Eintrag 0.1.0.
 
 ### ✅ Checkpoint: Complete
 
-- [ ] Alle Success Criteria aus `SPEC.md` abgehakt
-- [ ] CI grün, Exe funktioniert
-- [ ] Abschluss-Review mit Daniel
+- [x] Alle Success Criteria aus `SPEC.md` abgehakt
+- [x] CI grün, Exe funktioniert
+- [x] Abschluss-Review mit Daniel
