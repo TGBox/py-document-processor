@@ -1,13 +1,15 @@
-"""Main window: drop zone, background export and a short status line."""
+"""Main window: options bar, drop zone, background export and a short status line."""
 
 from pathlib import Path
 
-from PySide6.QtCore import QThread, QUrl
+from PySide6.QtCore import QSettings, QThread, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QLabel, QMainWindow, QVBoxLayout, QWidget
 
 from src.core.options import ExportOptions
 from src.gui.drop_zone import DropZone
+from src.gui.options_bar import OptionsBar
+from src.gui.settings import load_options, save_options
 from src.gui.worker import ExportWorker
 
 WINDOW_TITLE = "py-document-processor"
@@ -19,12 +21,18 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(WINDOW_TITLE)
         self.resize(800, 600)
 
+        self._settings = QSettings()
+        self._options_bar = OptionsBar()
+        self._options_bar.set_options(load_options(self._settings))
+        self._options_bar.options_changed.connect(self._save_options)
+
         self._drop_zone = DropZone()
         self._drop_zone.files_selected.connect(self.start_export)
         self._status = QLabel("Bereit.")
         self._status.setWordWrap(True)
 
         layout = QVBoxLayout()
+        layout.addWidget(self._options_bar)
         layout.addWidget(self._drop_zone, stretch=1)
         layout.addWidget(self._status)
         central = QWidget()
@@ -61,11 +69,18 @@ class MainWindow(QMainWindow):
         self._worker.finished.connect(self._worker.deleteLater)
         self._thread.finished.connect(self._thread.deleteLater)
 
-        self._drop_zone.setEnabled(False)
+        self._set_inputs_enabled(False)
         self._thread.start()
 
     def _current_options(self) -> ExportOptions:
-        return ExportOptions()
+        return self._options_bar.options()
+
+    def _save_options(self, options: ExportOptions) -> None:
+        save_options(self._settings, options)
+
+    def _set_inputs_enabled(self, enabled: bool) -> None:
+        self._options_bar.setEnabled(enabled)
+        self._drop_zone.setEnabled(enabled)
 
     def _on_file_started(self, index: int, total: int, name: str) -> None:
         self._status.setText(f"Verarbeite {name} ({index}/{total}) …")
@@ -80,7 +95,7 @@ class MainWindow(QMainWindow):
     def _on_finished(self) -> None:
         self._thread = None
         self._worker = None
-        self._drop_zone.setEnabled(True)
+        self._set_inputs_enabled(True)
         self._status.setText(self._summary())
         if self._close_requested:
             self.close()

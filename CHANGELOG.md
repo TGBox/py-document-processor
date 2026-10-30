@@ -1,8 +1,13 @@
 # Changelog
 
+## SemVer v0.2.1
+
+- 2026-10-30 (a78d26e): feat(gui): add export options bar with persisted settings
+
 ## SemVer v0.2.0
 
-- 2026-10-30 (9992ba6): feat: add gui
+- 2026-10-30 (2cd31b9): Merge pull request #2 from TGBox/gui
+- 2026-10-30 (9e0bdb7): feat: add gui
 
 ## SemVer v0.1.8
 
