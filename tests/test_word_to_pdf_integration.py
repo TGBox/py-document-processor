@@ -6,6 +6,7 @@ Only run on Windows with Word installed:  uv run pytest -v -m word
 import faulthandler
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pypdfium2 as pdfium
@@ -97,4 +98,32 @@ def test_password_document_fails_fast_without_leftover_word(tmp_path: Path):
     with pytest.raises(PasswordProtectedError):
         word_to_pdf(PASSWORD_DOCX, tmp_path / "password.pdf")
 
+    assert word_process_ids() - before == set()
+
+
+def test_process_id_of_private_instance_is_found_and_terminated():
+    import pythoncom
+    import win32com.client
+
+    from src.core.word_to_pdf import _terminate_process, _word_process_id
+
+    before = word_process_ids()
+    pythoncom.CoInitialize()
+    try:
+        word = win32com.client.DispatchEx("Word.Application")
+        word.Visible = False
+        pid = _word_process_id(word)
+
+        assert pid is not None
+        assert pid in word_process_ids() - before
+
+        del word
+        _terminate_process(pid)
+    finally:
+        pythoncom.CoUninitialize()
+
+    deadline = time.monotonic() + 5  # TerminateProcess is asynchronous
+    while pid in word_process_ids() and time.monotonic() < deadline:
+        time.sleep(0.2)
+    assert pid not in word_process_ids()
     assert word_process_ids() - before == set()

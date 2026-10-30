@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.1.8
+
+- 2026-10-30 (b4683cf): feat(core): abort hung word exports after 120 seconds
+
 ## SemVer v0.1.7
 
-- 2026-10-30 (c96f0b0): feat(core): add document pipeline with output folder handling
+- 2026-10-30 (3a5fd5e): feat(core): add document pipeline with output folder handling
 
 ## SemVer v0.1.6
 
