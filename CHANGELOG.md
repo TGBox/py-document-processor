@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.1.4
+
+- 2026-10-30 (f08d8c8): feat(core): add export options and document error types
+
 ## SemVer v0.1.3
 
-- 2026-10-30 (33a9d53): feat: add plan and todo files
+- 2026-10-30 (5490808): feat: add plan and todo files
 
 ## SemVer v0.1.2
 

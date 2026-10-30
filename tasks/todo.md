@@ -16,14 +16,14 @@ PNG/JPG inkl. Endung und Speicherparameter, Text ja/nein) sowie die Fehlerhierar
 
 **Acceptance criteria:**
 
-- [ ] `pypdfium2`, `pillow`, `pywin32; sys_platform == 'win32'` in `pyproject.toml`, `uv.lock` aktualisiert
-- [ ] `ExportOptions` validiert Skalierung (außerhalb 10–400 → `ValueError`), Standard 100 % / PNG / Text aus
-- [ ] Fehlerklassen: `UnsupportedFileError`, `PasswordProtectedError`, `WordExportError`, `WordTimeoutError` – jeweils mit deutscher Meldung
+- [ ] `pypdfium2`, `pillow`, `pywin32; sys_platform == 'win32'` in `pyproject.toml`, `uv.lock` aktualisiert *(pyproject erledigt; uv.lock: lokal per `uv sync --all-groups` – PyPI war in der Agent-Sitzung gesperrt)*
+- [x] `ExportOptions` validiert Skalierung (außerhalb 10–400 → `ValueError`), Standard 100 % / PNG / Text aus
+- [x] Fehlerklassen: `UnsupportedFileError`, `PasswordProtectedError`, `WordExportError`, `WordTimeoutError` – jeweils mit deutscher Meldung
 
 **Verification:**
 
 - [ ] `uv sync --all-groups` ok
-- [ ] `uv run pytest tests/test_options.py -v`
+- [x] `uv run pytest tests/test_options.py -v`
 
 **Dependencies:** None
 **Files:** `pyproject.toml`, `uv.lock`, `src/core/__init__.py`, `src/core/options.py`, `src/core/errors.py`, `tests/test_options.py`
