@@ -156,14 +156,14 @@ Ausgabeordner im Explorer geöffnet. `main.py` startet das neue `MainWindow`.
 
 **Acceptance criteria:**
 
-- [ ] Drop einer .docx → Bilder entstehen, Ordner öffnet sich; Fenster bleibt währenddessen verschiebbar
-- [ ] Mehrere Dateien werden nacheinander verarbeitet; Klick auf Drop-Zone öffnet Dateidialog mit Word-Filter
+- [x] Drop einer .docx → Bilder entstehen, Ordner öffnet sich; Fenster bleibt währenddessen verschiebbar
+- [x] Mehrere Dateien werden nacheinander verarbeitet; Klick auf Drop-Zone öffnet Dateidialog mit Word-Filter
 - [x] `src/gui/` enthält keine Fachlogik, `src/core/` keinen Qt-Import (per Test geprüft: `grep`-Test auf `PySide6` in `src/core`)
 
 **Verification:**
 
-- [ ] `uv run pytest -v`
-- [ ] Daniel lokal: `uv run main`, Datei droppen
+- [x] `uv run pytest -v`
+- [x] Daniel lokal: `uv run main`, Datei droppen
 
 **Dependencies:** Task 4
 **Files:** `src/main.py`, `src/gui/__init__.py`, `src/gui/main_window.py`, `src/gui/drop_zone.py`, `src/gui/worker.py`, `tests/test_architecture.py`, `tests/test_worker.py`
@@ -181,7 +181,7 @@ werden per `QSettings` gespeichert und beim Start geladen.
 
 - [ ] Gewählte Optionen wirken sich auf den Export aus (50 % → halbe Pixelmaße, JPG, Textdateien)
 - [ ] Nach Neustart sind die zuletzt gewählten Optionen wieder eingestellt
-- [ ] Ungültige gespeicherte Werte fallen auf Standard zurück
+- [x] Ungültige gespeicherte Werte fallen auf Standard zurück
 
 **Verification:**
 
@@ -189,7 +189,7 @@ werden per `QSettings` gespeichert und beim Start geladen.
 - [ ] Daniel lokal: Optionen ändern, App neu starten, prüfen
 
 **Dependencies:** Task 6
-**Files:** `src/gui/main_window.py`, `src/gui/options_bar.py`, `src/gui/settings.py`, `tests/test_settings.py`
+**Files:** `src/gui/main_window.py`, `src/gui/options_bar.py`, `src/gui/settings.py`, `tests/test_settings.py`, `tests/test_options_bar.py`
 **Scope:** S
 
 ---
