@@ -1,7 +1,7 @@
 # Implementation Plan: Word-Seiten als Bilder (MVP)
 
 > Grundlage: [`SPEC.md`](../SPEC.md) (freigegeben 2026-10-30) · Tasks: [`tasks/todo.md`](todo.md)
-> Status: **Entwurf – wartet auf Freigabe**
+> Status: **Abgeschlossen (2026-10-30)** – alle Tasks und Checkpoints erledigt
 
 ## Overview
 
@@ -48,45 +48,45 @@ T1 Fundament (deps, options, errors)
 
 ### Phase 1: Pipeline-Bausteine
 
-- [ ] Task 1: Fundament – Abhängigkeiten, `ExportOptions`, Fehlerklassen
-- [ ] Task 2: `pdf_to_images` – Seiten rendern, Text extrahieren, Abbruch
-- [ ] Task 3: `word_to_pdf` – Word-COM-Export ohne Markup
+- [x] Task 1: Fundament – Abhängigkeiten, `ExportOptions`, Fehlerklassen
+- [x] Task 2: `pdf_to_images` – Seiten rendern, Text extrahieren, Abbruch
+- [x] Task 3: `word_to_pdf` – Word-COM-Export ohne Markup
 
 ### Checkpoint 1 (Daniel, Windows)
 
-- [ ] `uv run pytest -v -m word` grün auf Daniels Rechner
-- [ ] Markup-Dokument → PDF zeigt nur Endfassung; eigenes offenes Word unberührt
+- [x] `uv run pytest -v -m word` grün auf Daniels Rechner
+- [x] Markup-Dokument → PDF zeigt nur Endfassung; eigenes offenes Word unberührt
 
 ### Phase 2: Orchestrierung
 
-- [ ] Task 4: `pipeline.process_document` – Ausgabeordner, Temp-PDF, Aufräumen
-- [ ] Task 5: Word-Timeout (120 s) mit Beenden der eigenen Word-Instanz
+- [x] Task 4: `pipeline.process_document` – Ausgabeordner, Temp-PDF, Aufräumen
+- [x] Task 5: Word-Timeout (120 s) mit Beenden der eigenen Word-Instanz
 
 ### Checkpoint 2
 
-- [ ] `uv run pytest -v` grün (inkl. `-m word` lokal)
-- [ ] Smoke-Test ohne GUI: `uv run python -m src.core.pipeline <datei.docx>` erzeugt Bilder
+- [x] `uv run pytest -v` grün (inkl. `-m word` lokal)
+- [x] Smoke-Test ohne GUI: `uv run python -m src.core.pipeline <datei.docx>` erzeugt Bilder
 
 ### Phase 3: GUI
 
-- [ ] Task 6: GUI-Scheibe – Drop-Zone → Export im Worker → Ordner öffnen
-- [ ] Task 7: Optionsleiste (Skalierung, Format, Text) + Persistenz
-- [ ] Task 8: Fortschritt, Abbrechen, Statusliste mit Fehlern
-- [ ] Task 9: Dark/Light-Theme, F11, Fenstergeometrie
+- [x] Task 6: GUI-Scheibe – Drop-Zone → Export im Worker → Ordner öffnen
+- [x] Task 7: Optionsleiste (Skalierung, Format, Text) + Persistenz
+- [x] Task 8: Fortschritt, Abbrechen, Statusliste mit Fehlern
+- [x] Task 9: Dark/Light-Theme, F11, Fenstergeometrie
 
 ### Checkpoint 3 (Daniel, Windows)
 
-- [ ] Manuelle GUI-Checkliste aus SPEC → Success Criteria vollständig abgehakt
+- [x] Manuelle GUI-Checkliste aus SPEC → Success Criteria vollständig abgehakt
 
 ### Phase 4: Auslieferung
 
-- [ ] Task 10: CI-Testschritt, PyInstaller-Build, README
+- [x] Task 10: CI-Testschritt, PyInstaller-Build, README
 
 ### Checkpoint: Complete
 
-- [ ] Alle Success Criteria aus `SPEC.md` erfüllt
-- [ ] CI grün, `.exe` führt einen Export durch
-- [ ] Review mit Daniel
+- [x] Alle Success Criteria aus `SPEC.md` erfüllt
+- [x] CI grün, `.exe` führt einen Export durch
+- [x] Review mit Daniel
 
 ## Parallelisierung
 

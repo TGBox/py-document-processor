@@ -179,14 +179,14 @@ werden per `QSettings` gespeichert und beim Start geladen.
 
 **Acceptance criteria:**
 
-- [ ] Gewählte Optionen wirken sich auf den Export aus (50 % → halbe Pixelmaße, JPG, Textdateien)
-- [ ] Nach Neustart sind die zuletzt gewählten Optionen wieder eingestellt
+- [x] Gewählte Optionen wirken sich auf den Export aus (50 % → halbe Pixelmaße, JPG, Textdateien)
+- [x] Nach Neustart sind die zuletzt gewählten Optionen wieder eingestellt
 - [x] Ungültige gespeicherte Werte fallen auf Standard zurück
 
 **Verification:**
 
-- [ ] `uv run pytest -v`
-- [ ] Daniel lokal: Optionen ändern, App neu starten, prüfen
+- [x] `uv run pytest -v`
+- [x] Daniel lokal: Optionen ändern, App neu starten, prüfen
 
 **Dependencies:** Task 6
 **Files:** `src/gui/main_window.py`, `src/gui/options_bar.py`, `src/gui/settings.py`, `tests/test_settings.py`, `tests/test_options_bar.py`
@@ -202,14 +202,14 @@ Flag, das `is_cancelled` liefert), Statusliste mit einer Zeile pro Datei
 
 **Acceptance criteria:**
 
-- [ ] Fortschritt aktualisiert sich pro Seite; Abbrechen stoppt nach der aktuellen Seite, bereits erzeugte Bilder bleiben
-- [ ] Fehlerhafte Datei (z. B. kennwortgeschützt) → ✗ mit Meldung, nächste Datei wird verarbeitet
-- [ ] Während eines Laufs keine zweite Verarbeitung startbar
+- [x] Fortschritt aktualisiert sich pro Seite; Abbrechen stoppt nach der aktuellen Seite, bereits erzeugte Bilder bleiben
+- [x] Fehlerhafte Datei (z. B. kennwortgeschützt) → ✗ mit Meldung, nächste Datei wird verarbeitet
+- [x] Während eines Laufs keine zweite Verarbeitung startbar
 
 **Verification:**
 
-- [ ] `uv run pytest -v`
-- [ ] Daniel lokal: 3 Dateien droppen (eine mit Kennwort), einmal abbrechen
+- [x] `uv run pytest -v`
+- [x] Daniel lokal: 3 Dateien droppen (eine mit Kennwort), einmal abbrechen
 
 **Dependencies:** Task 6
 **Files:** `src/gui/main_window.py`, `src/gui/status_list.py`, `src/gui/progress.py`, `tests/test_progress.py`, `tests/test_status_list.py`
@@ -225,14 +225,14 @@ Task 6–8, inkl. Hover-/Drag-Over-Zustand der Drop-Zone.
 
 **Acceptance criteria:**
 
-- [ ] Theme umschaltbar, Auswahl wird gespeichert; Kontraste gut lesbar in beiden Themes
-- [ ] F11 wechselt Vollbild ↔ Fenster ohne Layoutfehler
-- [ ] Fenstergeometrie bleibt über Neustart erhalten
+- [x] Theme umschaltbar, Auswahl wird gespeichert; Kontraste gut lesbar in beiden Themes
+- [x] F11 wechselt Vollbild ↔ Fenster ohne Layoutfehler
+- [x] Fenstergeometrie bleibt über Neustart erhalten
 
 **Verification:**
 
-- [ ] `uv run pytest -v`
-- [ ] Daniel lokal: Sichtprüfung beider Themes, F11, Neustart
+- [x] `uv run pytest -v`
+- [x] Daniel lokal: Sichtprüfung beider Themes, F11, Neustart
 
 **Dependencies:** Task 6
 **Files:** `src/gui/theme.py`, `src/gui/main_window.py`, `src/gui/settings.py`, `src/gui/drop_zone.py`, `src/main.py`, `tests/test_theme.py`
@@ -242,8 +242,8 @@ Task 6–8, inkl. Hover-/Drag-Over-Zustand der Drop-Zone.
 
 ### ✅ Checkpoint 3 (Daniel, Windows)
 
-- [ ] Manuelle Prüfung aller GUI-bezogenen Success Criteria aus `SPEC.md`
-- [ ] Review mit Daniel vor Phase 4
+- [x] Manuelle Prüfung aller GUI-bezogenen Success Criteria aus `SPEC.md`
+- [x] Review mit Daniel vor Phase 4
 
 ---
 
@@ -258,23 +258,23 @@ CHANGELOG-Eintrag 0.1.0.
 
 **Acceptance criteria:**
 
-- [ ] CI führt Lint + Tests aus und ist grün
-- [ ] `uv run build` → `dist/py-document-processor/py-document-processor.exe` startet und exportiert ein Dokument auf einem Rechner ohne Python
-- [ ] README beschreibt Bedienung, Optionen, Voraussetzungen; CHANGELOG aktualisiert
+- [x] CI führt Lint + Tests aus und ist grün
+- [x] `uv run build` → `dist/py-document-processor/py-document-processor.exe` startet und exportiert ein Dokument auf einem Rechner ohne Python
+- [x] README beschreibt Bedienung, Optionen, Voraussetzungen; CHANGELOG aktualisiert *(CHANGELOG pflegt der post-commit-Hook automatisch)*
 
 **Verification:**
 
-- [ ] CI-Lauf auf GitHub grün
-- [ ] Daniel lokal: Build + Exe-Test
+- [x] CI-Lauf auf GitHub grün
+- [x] Daniel lokal: Build + Exe-Test
 
 **Dependencies:** Task 7, Task 8, Task 9
-**Files:** `.github/workflows/ci.yml`, `src/build.py`, `README.md`, `CHANGELOG.md`
+**Files:** `.github/workflows/ci.yml`, `src/build.py`, `README.md`, `tests/test_build.py`
 **Scope:** S
 
 ---
 
 ### ✅ Checkpoint: Complete
 
-- [ ] Alle Success Criteria aus `SPEC.md` abgehakt
-- [ ] CI grün, Exe funktioniert
-- [ ] Abschluss-Review mit Daniel
+- [x] Alle Success Criteria aus `SPEC.md` abgehakt
+- [x] CI grün, Exe funktioniert
+- [x] Abschluss-Review mit Daniel

@@ -1,8 +1,18 @@
 # Changelog
 
+## SemVer v1.1.0
+
+- 2026-10-30 (db04e62): docs: close mvp spec and plan, restore spec decisions
+
+## SemVer v1.0.0
+
+- 2026-10-30 (a057825): fix: add missing files from the last push
+- 2026-10-30 (249dd70): build: add ci tests, pyinstaller bundling and readme
+
 ## SemVer v0.4.0
 
-- 2026-10-30 (86e14de): feat(gui): add light/dark theme, full screen and window geometry
+- 2026-10-30 (d0dd7b8): Merge pull request #5 from TGBox/theme-fullscreen
+- 2026-10-30 (e13ecc3): feat(gui): add light/dark theme, full screen and window geometry
 
 ## SemVer v0.3.0
 
