@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.1.3
+
+- 2026-10-30 (33a9d53): feat: add plan and todo files
+
 ## SemVer v0.1.2
 
-- 2026-10-30 (1f9c4a2): feat: add spec file
+- 2026-10-30 (aa6f1d5): feat: add spec file
 
 ## SemVer v0.1.1
 
