@@ -212,7 +212,7 @@ Flag, das `is_cancelled` liefert), Statusliste mit einer Zeile pro Datei
 - [ ] Daniel lokal: 3 Dateien droppen (eine mit Kennwort), einmal abbrechen
 
 **Dependencies:** Task 6
-**Files:** `src/gui/main_window.py`, `src/gui/worker.py`, `src/gui/status_list.py`
+**Files:** `src/gui/main_window.py`, `src/gui/status_list.py`, `src/gui/progress.py`, `tests/test_progress.py`, `tests/test_status_list.py`
 **Scope:** S
 
 ---
