@@ -1,23 +1,20 @@
 import sys
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QLabel, QMainWindow
+from PySide6.QtWidgets import QApplication
 
+from src.gui.main_window import MainWindow
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("py-document-processor")
-        self.resize(800, 600)
-        label = QLabel("Hallo aus py-document-processor!", alignment=Qt.AlignmentFlag.AlignCenter)
-        self.setCentralWidget(label)
+APP_NAME = "py-document-processor"
 
 
 def main() -> None:
     app = QApplication(sys.argv)
+    app.setApplicationName(APP_NAME)
+    app.setOrganizationName(APP_NAME)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()

@@ -106,7 +106,7 @@ Endung, legt `<name>_pages` bzw. `<name>_pages (n)` an, erzeugt das PDF in einem
 **Verification:**
 
 - [x] `uv run pytest tests/test_pipeline.py tests/test_output_dir.py -v`
-- [ ] Daniel lokal: `uv run python -m src.core.pipeline <test.docx>` → Bilder vorhanden
+- [x] Daniel lokal: `uv run python -m src.core.pipeline <test.docx>` → Bilder vorhanden
 
 **Dependencies:** Task 2, Task 3
 **Files:** `src/core/pipeline.py`, `tests/test_pipeline.py`, `tests/test_output_dir.py`
@@ -125,12 +125,12 @@ Fehler gemeldet. Timeout ist als Parameter injizierbar (Tests mit kurzer Zeit).
 
 - [x] Simulierter Hänger (Fake-Exporter, Timeout 1 s) → `WordTimeoutError`, Kill-Funktion mit korrekter PID aufgerufen
 - [x] PID unbekannt → kein Kill-Aufruf, trotzdem `WordTimeoutError`
-- [ ] Nie Beenden per Prozessname; Nutzer-Word bleibt bei Timeout unberührt (manuell)
+- [x] Nie Beenden per Prozessname; Nutzer-Word bleibt bei Timeout unberührt (manuell)
 
 **Verification:**
 
 - [x] `uv run pytest tests/test_word_timeout.py -v`
-- [ ] Daniel lokal: Word-Export mit künstlich kurzem Timeout → eigenes Word bleibt offen
+- [x] Daniel lokal: Word-Export mit künstlich kurzem Timeout → eigenes Word bleibt offen
 
 **Dependencies:** Task 3
 **Files:** `src/core/word_to_pdf.py`, `tests/test_word_timeout.py`
@@ -140,8 +140,8 @@ Fehler gemeldet. Timeout ist als Parameter injizierbar (Tests mit kurzer Zeit).
 
 ### ✅ Checkpoint 2
 
-- [ ] `uv run pytest -v` grün, lokal zusätzlich `-m word`
-- [ ] Smoke-Test über `python -m src.core.pipeline` mit echtem Dokument erfolgreich
+- [x] `uv run pytest -v` grün, lokal zusätzlich `-m word`
+- [x] Smoke-Test über `python -m src.core.pipeline` mit echtem Dokument erfolgreich
 
 ---
 
@@ -158,7 +158,7 @@ Ausgabeordner im Explorer geöffnet. `main.py` startet das neue `MainWindow`.
 
 - [ ] Drop einer .docx → Bilder entstehen, Ordner öffnet sich; Fenster bleibt währenddessen verschiebbar
 - [ ] Mehrere Dateien werden nacheinander verarbeitet; Klick auf Drop-Zone öffnet Dateidialog mit Word-Filter
-- [ ] `src/gui/` enthält keine Fachlogik, `src/core/` keinen Qt-Import (per Test geprüft: `grep`-Test auf `PySide6` in `src/core`)
+- [x] `src/gui/` enthält keine Fachlogik, `src/core/` keinen Qt-Import (per Test geprüft: `grep`-Test auf `PySide6` in `src/core`)
 
 **Verification:**
 
@@ -166,7 +166,7 @@ Ausgabeordner im Explorer geöffnet. `main.py` startet das neue `MainWindow`.
 - [ ] Daniel lokal: `uv run main`, Datei droppen
 
 **Dependencies:** Task 4
-**Files:** `src/main.py`, `src/gui/__init__.py`, `src/gui/main_window.py`, `src/gui/drop_zone.py`, `src/gui/worker.py`, `tests/test_architecture.py`
+**Files:** `src/main.py`, `src/gui/__init__.py`, `src/gui/main_window.py`, `src/gui/drop_zone.py`, `src/gui/worker.py`, `tests/test_architecture.py`, `tests/test_worker.py`
 **Scope:** M
 
 ---
