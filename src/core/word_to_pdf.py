@@ -5,12 +5,13 @@ windows are never touched. The source is opened read-only, macros are disabled, 
 changes and comments are hidden, and the instance is always quit afterwards.
 """
 
+import threading
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager, suppress
 from pathlib import Path
 from typing import Any
 
-from src.core.errors import PasswordProtectedError, WordExportError
+from src.core.errors import PasswordProtectedError, WordExportError, WordTimeoutError
 
 WORD_PROG_ID = "Word.Application"
 
@@ -33,23 +34,69 @@ WORD_ERROR_WRONG_PASSWORD = -2146822880
 # Unencrypted files ignore it.
 DUMMY_PASSWORD = "#py-document-processor#"
 
+WORD_TIMEOUT_SECONDS = 120
+# After killing a hung Word, give the helper thread a moment to unwind.
+TERMINATE_GRACE_SECONDS = 5
+
 WordFactory = Callable[[], Any]
+ProcessIdLookup = Callable[[Any], int | None]
+Terminate = Callable[[int], None]
 
 
-def word_to_pdf(src: Path, dst_pdf: Path, word_factory: WordFactory | None = None) -> None:
+def word_to_pdf(
+    src: Path,
+    dst_pdf: Path,
+    word_factory: WordFactory | None = None,
+    timeout_seconds: float = WORD_TIMEOUT_SECONDS,
+    process_id_of: ProcessIdLookup | None = None,
+    terminate: Terminate | None = None,
+) -> None:
     """Export ``src`` as PDF to ``dst_pdf`` without markup.
 
-    ``word_factory`` returns a Word Application object; defaults to a new private instance.
-    Raises ``PasswordProtectedError`` or ``WordExportError``.
+    The export runs in a helper thread with its own COM apartment. If it does not finish
+    within ``timeout_seconds``, only the Word process this call started is terminated and
+    ``WordTimeoutError`` is raised; if its process id is unknown, nothing is terminated.
+
+    ``word_factory`` returns a Word Application object (default: new private instance).
+    Raises ``PasswordProtectedError``, ``WordExportError`` or ``WordTimeoutError``.
     """
-    if word_factory is not None:
-        _export(word_factory, src, dst_pdf)
-        return
-    with _com_apartment():
-        _export(_new_word_instance, src, dst_pdf)
+    lookup_pid = process_id_of or _word_process_id
+    kill = terminate or _terminate_process
+    state: dict[str, Any] = {"pid": None, "error": None}
+
+    def run() -> None:
+        def remember_pid(word: Any) -> None:
+            state["pid"] = lookup_pid(word)
+
+        try:
+            if word_factory is not None:
+                _export(word_factory, src, dst_pdf, remember_pid)
+            else:
+                with _com_apartment():
+                    _export(_new_word_instance, src, dst_pdf, remember_pid)
+        except BaseException as exc:  # noqa: BLE001 - re-raised in the calling thread
+            state["error"] = exc
+
+    helper = threading.Thread(target=run, name="word-export", daemon=True)
+    helper.start()
+    helper.join(timeout_seconds)
+
+    if helper.is_alive():
+        pid = state["pid"]
+        if pid is not None:
+            _ignore_errors(lambda: kill(pid))
+            helper.join(TERMINATE_GRACE_SECONDS)
+        raise WordTimeoutError(f"no response after {timeout_seconds}s (pid={pid})")
+    if state["error"] is not None:
+        raise state["error"]
 
 
-def _export(word_factory: WordFactory, src: Path, dst_pdf: Path) -> None:
+def _export(
+    word_factory: WordFactory,
+    src: Path,
+    dst_pdf: Path,
+    on_started: Callable[[Any], None],
+) -> None:
     try:
         word = word_factory()
     except Exception as exc:
@@ -59,6 +106,7 @@ def _export(word_factory: WordFactory, src: Path, dst_pdf: Path) -> None:
         word.Visible = False
         word.DisplayAlerts = WD_ALERTS_NONE
         word.AutomationSecurity = MSO_AUTOMATION_SECURITY_FORCE_DISABLE
+        on_started(word)
         document = _open_document(word, src)
         try:
             _hide_markup(document)
@@ -129,6 +177,37 @@ def _ignore_errors(action: Callable[[], object]) -> None:
     """Run a cleanup step; its failure must never mask the original error."""
     with suppress(Exception):
         action()
+
+
+def _word_process_id(word: Any) -> int | None:
+    """Return the process id of this Word instance via the window of a blank probe document.
+
+    Returns ``None`` if it cannot be determined (then nothing is ever terminated).
+    """
+    try:
+        import win32process
+
+        probe = word.Documents.Add()
+        try:
+            hwnd = probe.ActiveWindow.Hwnd
+        finally:
+            probe.Close(SaveChanges=WD_DO_NOT_SAVE_CHANGES)
+        _thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+    except Exception:  # noqa: BLE001 - unknown pid is a supported outcome
+        return None
+    return pid or None
+
+
+def _terminate_process(pid: int) -> None:
+    """Forcefully end exactly the process with ``pid`` (never by image name)."""
+    import win32api
+    import win32con
+
+    handle = win32api.OpenProcess(win32con.PROCESS_TERMINATE, False, pid)
+    try:
+        win32api.TerminateProcess(handle, 1)
+    finally:
+        win32api.CloseHandle(handle)
 
 
 def _new_word_instance() -> Any:

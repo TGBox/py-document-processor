@@ -66,13 +66,13 @@ lazy importiert. Pytest-Marker `word` registrieren und in CI standardmäßig aus
 
 - [x] Dokument mit Änderungsverfolgung + Kommentar → PDF-Text enthält nur die Endfassung, keinen Kommentartext
 - [x] Kennwortgeschützte Datei → `PasswordProtectedError` ohne Dialog/Hänger; kein verbleibender eigener WINWORD-Prozess
-- [ ] Quelldatei-`mtime` unverändert; bereits offenes Nutzer-Word bleibt offen
+- [x] Quelldatei-`mtime` unverändert; bereits offenes Nutzer-Word bleibt offen
 
 **Verification:**
 
 - [x] `uv run pytest -v` (CI/Linux: Word-Tests übersprungen)
 - [x] Daniel lokal: `uv run pytest -v -m word`
-- [ ] Manuell: Word mit eigenem Dokument offen lassen, Test laufen lassen → Dokument noch offen
+- [x] Manuell: Word mit eigenem Dokument offen lassen, Test laufen lassen → Dokument noch offen
 
 **Dependencies:** Task 1
 **Files:** `src/core/word_to_pdf.py`, `tests/test_word_to_pdf.py`, `tests/test_word_to_pdf_integration.py`, `tests/fixtures/markup.docx`, `tests/fixtures/password.docx`, `pyproject.toml` (pytest-Marker)
@@ -83,8 +83,8 @@ lazy importiert. Pytest-Marker `word` registrieren und in CI standardmäßig aus
 ### ✅ Checkpoint 1 (Daniel, Windows)
 
 - [x] `uv run pytest -v -m word` grün
-- [ ] PDF eines Markup-Dokuments manuell angesehen: nur Endfassung
-- [ ] Review mit Daniel vor Phase 2
+- [x] PDF eines Markup-Dokuments manuell angesehen: nur Endfassung
+- [x] Review mit Daniel vor Phase 2
 
 ---
 
@@ -123,13 +123,13 @@ Fehler gemeldet. Timeout ist als Parameter injizierbar (Tests mit kurzer Zeit).
 
 **Acceptance criteria:**
 
-- [ ] Simulierter Hänger (Fake-Exporter, Timeout 1 s) → `WordTimeoutError`, Kill-Funktion mit korrekter PID aufgerufen
-- [ ] PID unbekannt → kein Kill-Aufruf, trotzdem `WordTimeoutError`
+- [x] Simulierter Hänger (Fake-Exporter, Timeout 1 s) → `WordTimeoutError`, Kill-Funktion mit korrekter PID aufgerufen
+- [x] PID unbekannt → kein Kill-Aufruf, trotzdem `WordTimeoutError`
 - [ ] Nie Beenden per Prozessname; Nutzer-Word bleibt bei Timeout unberührt (manuell)
 
 **Verification:**
 
-- [ ] `uv run pytest tests/test_word_timeout.py -v`
+- [x] `uv run pytest tests/test_word_timeout.py -v`
 - [ ] Daniel lokal: Word-Export mit künstlich kurzem Timeout → eigenes Word bleibt offen
 
 **Dependencies:** Task 3
