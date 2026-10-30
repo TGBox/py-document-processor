@@ -1,8 +1,13 @@
 # Changelog
 
+## SemVer v0.3.0
+
+- 2026-10-30 (baeb731): feat(gui): add progress bar, cancel button and status list
+
 ## SemVer v0.2.1
 
-- 2026-10-30 (a78d26e): feat(gui): add export options bar with persisted settings
+- 2026-10-30 (0f5d76d): Merge pull request #3 from TGBox/options-bar
+- 2026-10-30 (8dd4ed8): feat(gui): add export options bar with persisted settings
 
 ## SemVer v0.2.0
 
