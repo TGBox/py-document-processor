@@ -40,13 +40,13 @@ der nächsten Seite ab, wenn `is_cancelled()` wahr ist. Dazu ein eingechecktes F
 
 **Acceptance criteria:**
 
-- [ ] A4 bei 100 % → 1240 × 1754 px (±1), bei 50 % → 620 × 877 px; Anzahl Bilder == Seitenzahl
-- [ ] JPG-Option → `.jpg`; Text-Option → `page_NN.txt` (UTF-8) mit Seitentext; Nullpolsterung ≥ 2 Stellen
-- [ ] Abbruch nach Seite 1 → genau 1 Bild, Rückgabe enthält nur geschriebene Pfade
+- [x] A4 bei 100 % → 1240 × 1754 px (±1), bei 50 % → 620 × 877 px; Anzahl Bilder == Seitenzahl
+- [x] JPG-Option → `.jpg`; Text-Option → `page_NN.txt` (UTF-8) mit Seitentext; Nullpolsterung ≥ 2 Stellen
+- [x] Abbruch nach Seite 1 → genau 1 Bild, Rückgabe enthält nur geschriebene Pfade
 
 **Verification:**
 
-- [ ] `uv run pytest tests/test_pdf_to_images.py -v`
+- [x] `uv run pytest tests/test_pdf_to_images.py -v`
 
 **Dependencies:** Task 1
 **Files:** `src/core/pdf_to_images.py`, `tests/test_pdf_to_images.py`, `tests/fixtures/sample.pdf`, `tests/fixtures/make_sample_pdf.py`

@@ -1,8 +1,12 @@
 # Changelog
 
+## SemVer v0.1.5
+
+- 2026-10-30 (0d3e045): feat(core): render pdf pages to images
+
 ## SemVer v0.1.4
 
-- 2026-10-30 (f08d8c8): feat(core): add export options and document error types
+- 2026-10-30 (d7c6467): feat(core): add export options and document error types
 
 ## SemVer v0.1.3
 
